@@ -60,7 +60,7 @@ namespace AutoUpdaterDotNET
                 // Run the provided action using the provided user's handle.
                 return action();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // File.AppendAllText(@"C:\doc\impersonation.txt", "Exception impersonating user: " + ex.Message);
                 return false;

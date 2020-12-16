@@ -3,7 +3,7 @@
     <PropertyGroup>
         <ProjectGuid>{91DE558C-6DB8-429B-A069-C0491DCFF15B}</ProjectGuid>
         <OutputType>WinExe</OutputType>
-        <TargetFrameworks>net20;net35;net40;net45</TargetFrameworks>
+        <TargetFrameworks>net45</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <AssemblyTitle>ZipExtractor</AssemblyTitle>
         <Company>RBSoft</Company>
@@ -32,18 +32,9 @@
     <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
         <DefineConstants>NET45</DefineConstants>
     </PropertyGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' != 'net45' ">
-        <PackageReference Include="ZipStorer" Version="3.6.0" />
-        <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.1">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
         <Reference Include="System.IO.Compression" />
         <Reference Include="System.IO.Compression.FileSystem" />
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="System.Windows.Forms" />
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Properties\Settings.Designer.cs">

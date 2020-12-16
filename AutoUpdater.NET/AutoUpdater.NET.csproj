@@ -3,7 +3,7 @@
     <PropertyGroup>
         <ProjectGuid>{FB9E7E6B-B19F-4F37-A708-2996190CEF13}</ProjectGuid>
         <OutputType>library</OutputType>
-        <TargetFrameworks>net35;net40;net45</TargetFrameworks>
+        <TargetFrameworks>net45</TargetFrameworks>
         <UseWindowsForms>true</UseWindowsForms>
         <RootNamespace>AutoUpdaterDotNET</RootNamespace>
         <AssemblyTitle>AutoUpdater.NET</AssemblyTitle>
@@ -15,18 +15,19 @@
         <SignAssembly>false</SignAssembly>
         <AssemblyOriginatorKeyFile>AutoUpdater.NET.snk</AssemblyOriginatorKeyFile>
         <NeutralLanguage>en</NeutralLanguage>
-        <PackageId>Autoupdater.NET.Official</PackageId>
+        <PackageId>Autoupdater.NET.Romo</PackageId>
         <IncludeSymbols>true</IncludeSymbols>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageVersion>1.6.4</PackageVersion>
         <Title>AutoUpdater.NET</Title>
         <Authors>rbsoft</Authors>
         <Description>AutoUpdater.NET is a class library that allows .NET developers to easily add auto update functionality to their classic desktop application projects.</Description>
-        <PackageProjectUrl>https://github.com/ravibpatel/AutoUpdater.NET</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/darranromo/AutoUpdater.NET</PackageProjectUrl>
         <PackageTags>autoupdate updater c# vb wpf winforms</PackageTags>
         <PackageReleaseNotes>https://github.com/ravibpatel/AutoUpdater.NET/releases</PackageReleaseNotes>
         <PackageOutputPath>build</PackageOutputPath>
         <DocumentationFile>$(OutputPath)\$(Configuration)\AutoUpdater.NET.xml</DocumentationFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <OutputPath>build\lib</OutputPath>
