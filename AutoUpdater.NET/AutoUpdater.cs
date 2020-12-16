@@ -224,6 +224,27 @@ namespace AutoUpdaterDotNET
         public static Size? UpdateFormSize = null;
 
         /// <summary>
+        /// Whether we should use impersonation for the file processing.
+        /// THIS CURRENTLY DOES NOT WORK - Win32Exception ERRORS - DCS 15/12/2020
+        /// </summary>
+        public static bool UseImpersonation { get; set; } = false;
+
+        /// <summary>
+        /// The domain of the user for impersonation.
+        /// </summary>
+        public static string ImpersonationDomain { get; set; }
+
+        /// <summary>
+        /// The username of the user for impersonation.
+        /// </summary>
+        public static string ImpersonationUser { get; set; }
+
+        /// <summary>
+        /// The (md5 hash) password of the user for impersonation.
+        /// </summary>
+        public static string ImpersonationPassword { get; set; }
+
+        /// <summary>
         ///     Start checking for new version of application and display a dialog to the user if update is available.
         /// </summary>
         /// <param name="myAssembly">Assembly to use for version checking.</param>
@@ -441,6 +462,14 @@ namespace AutoUpdaterDotNET
             {
                 if (result is UpdateInfoEventArgs args)
                 {
+                    // Check for impersonation requirements.
+                    if (UseImpersonation)
+                    {
+                        args.ImpersonationUser = ImpersonationUser;
+                        args.ImpersonationPassword = ImpersonationPassword;
+                        args.ImpersonationDomain = ImpersonationDomain;
+                        args.UseImpersonation = UseImpersonation;
+                    }
                     if (CheckForUpdateEvent != null)
                     {
                         CheckForUpdateEvent(args);
@@ -626,7 +655,7 @@ namespace AutoUpdaterDotNET
         }
 
         /// <summary>
-        ///     Opens the Download window that download the update and execute the installer when download completes.
+        /// Opens the download window that download the update and execute the installer when download completes.
         /// </summary>
         public static bool DownloadUpdate(UpdateInfoEventArgs args)
         {
@@ -634,7 +663,15 @@ namespace AutoUpdaterDotNET
             {
                 try
                 {
-                    return downloadDialog.ShowDialog().Equals(DialogResult.OK);
+                    if (UseImpersonation)
+                    {
+                        DomainAuthentication domainAuthentication = new DomainAuthentication(ImpersonationUser, ImpersonationPassword, ImpersonationDomain);
+                        return Impersonator.DoWorkUnderImpersonation(() => downloadDialog.ShowDialog().Equals(DialogResult.OK), domainAuthentication);
+                    }
+                    else
+                    {
+                        return downloadDialog.ShowDialog().Equals(DialogResult.OK);
+                    }
                 }
                 catch (TargetInvocationException)
                 {

@@ -78,6 +78,26 @@ namespace AutoUpdaterDotNET
         [XmlElement("checksum")]
         public CheckSum CheckSum { get; set; }
 
+        /// <summary>
+        /// Whether we should use impersonation for the file processing.
+        /// </summary>
+        public bool UseImpersonation { get; set; }
+
+        /// <summary>
+        /// The domain of the user for impersonation.
+        /// </summary>
+        public string ImpersonationDomain { get; set; }
+
+        /// <summary>
+        /// The username of the user for impersonation.
+        /// </summary>
+        public string ImpersonationUser { get; set; }
+
+        /// <summary>
+        /// The (md5 hash) password of the user for impersonation.
+        /// </summary>
+        public string ImpersonationPassword { get; set; }
+
         internal static string GetURL(Uri baseUri, string url)
         {
             if (!string.IsNullOrEmpty(url) && Uri.IsWellFormedUriString(url, UriKind.Relative))

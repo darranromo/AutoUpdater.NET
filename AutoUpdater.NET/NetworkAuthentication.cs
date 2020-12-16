@@ -8,12 +8,12 @@ namespace AutoUpdaterDotNET
     /// </summary>
     public class NetworkAuthentication : IAuthentication
     {
-        private string Username { get; }
+        internal string Username { get; }
 
-        private string Password { get; }
+        internal string Password { get; }
 
         /// <summary>
-        ///     Initializes credentials for Network Authentication.
+        /// Initializes credentials for Network Authentication.
         /// </summary>
         /// <param name="username">Username to use for Network Authentication</param>
         /// <param name="password">Password to use for Network Authentication</param>

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Mime;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -14,6 +15,16 @@ namespace AutoUpdaterDotNET
 {
     internal partial class DownloadUpdateDialog : Form
     {
+        // Impersonation bits
+        // Obtains user token
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool LogonUser(string pszUsername, string pszDomain, string pszPassword,
+            int dwLogonType, int dwLogonProvider, ref IntPtr phToken);
+
+        // closes open handes returned by LogonUser
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public extern static bool CloseHandle(IntPtr handle);
+
         private readonly UpdateInfoEventArgs _args;
 
         private string _tempFile;
@@ -194,6 +205,8 @@ namespace AutoUpdaterDotNET
 
                 try
                 {
+                    // File.AppendAllText(@"C:\doc\impersonation.txt", $"Arguments for processStartInfo are {processStartInfo.Arguments} and path is {tempPath}");
+                    
                     Process.Start(processStartInfo);
                 }
                 catch (Win32Exception exception)
